@@ -36,5 +36,6 @@ const todos = createSlice({
     }
 })
 
-export const {addTodo , completeTodo} = todos.actions
-export default todos
+export const {addTodo , completeTodo} = todos.actions;
+
+export default todos;
