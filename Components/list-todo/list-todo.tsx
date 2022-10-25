@@ -9,17 +9,30 @@ import type { Appstate } from "../../store/store";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../store/store";
 import { completeTodo } from "../../store/todo";
+import Link from "next/link";
+
 
 const Item: NextPage = () => {
     const dispatch: AppDispatch = useDispatch();
     const todosItem = useSelector((state:Appstate)=> state.todos)
-    console.log(todosItem);
+
 
 
     return (
+      
         <Container maxWidth="xs" sx={{
             marginTop: 10
         }}>
+                 <Grid item xs={12} md={10} rowSpacing={2}>
+                <Link href="http://localhost:3000/add-item">
+                <Button variant="contained" fullWidth sx={{
+                    height: 56,
+                    mb: 5
+                }} disableElevation  color="success">
+                   Add new task
+                </Button>
+                </Link>
+            </Grid>
 
             <Grid container rowSpacing={2}>
             {todosItem.map((todo) => (<>
@@ -39,6 +52,7 @@ const Item: NextPage = () => {
                     </>))}
                 </Grid>
         </Container>
+        
     )
 
 }
