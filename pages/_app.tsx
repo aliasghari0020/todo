@@ -3,11 +3,14 @@ import type { AppProps } from 'next/app'
 import { Provider } from "react-redux";
 import store from "../store/store";
 import { SnackbarProvider } from "notistack";
+import ApplicationWrapper from '../Components/ApplicationWrapper';
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <SnackbarProvider maxSnack={3}>
-        <Component {...pageProps} />
+        <ApplicationWrapper>
+          <Component {...pageProps} />
+        </ApplicationWrapper>
       </SnackbarProvider>
     </Provider>
   )

@@ -1,12 +1,8 @@
-import { v4 as uuid } from 'uuid';
-
-
-
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 export interface Todo {
     id: string,
-    mesage: string,
+    message: string,
     completed: boolean
 
 }
@@ -14,12 +10,8 @@ const todos = createSlice({
     name: 'todos',
     initialState: [] as Todo[],
     reducers: {
-        addTodo: (state, action: PayloadAction<string>) => {
-            state.push({
-                id: uuid(),
-                mesage: action.payload,
-                completed: false,
-            })
+        addTodo: (state, action: PayloadAction<Todo>) => {
+            state.push(action.payload)
             
         },
         completeTodo: (state, action: PayloadAction<string>) => {
@@ -33,8 +25,11 @@ const todos = createSlice({
             
             
         }, 
+        addBatchTodos:(state, action: PayloadAction<Todo[]>)=>{
+            return action.payload;
+        }
     }
 })
 
-export const {addTodo , completeTodo} = todos.actions
+export const {addTodo , completeTodo, addBatchTodos} = todos.actions
 export default todos

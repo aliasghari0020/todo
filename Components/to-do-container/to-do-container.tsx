@@ -10,15 +10,26 @@ import type { FormEvent } from "react"
 import SendIcon from '@mui/icons-material/Send';
 import Link from "next/link";
 import { useSnackbar } from 'notistack';
+import axios from "axios";
+import {v4} from "uuid";
+import type { Todo } from "../../store/todo";
 
 const ToDoContainer: NextPage = () => {
     const { enqueueSnackbar } = useSnackbar();
 
     const handleSubmit = (ev: FormEvent) => {
         ev.preventDefault()
-        disptch(addTodo(input))
-        setInput('')
-        enqueueSnackbar('Added to list successfully!', { variant: "success" });
+        axios.post<Todo>("http://192.168.1.100:8000", {
+            message: input,
+            completed: false,
+            id: v4()
+        }).then((response) => {
+            disptch(addTodo(response.data))
+            setInput('')
+            enqueueSnackbar('Added to list successfully!', { variant: "success" });
+        }).catch(err => {
+            enqueueSnackbar(err.message, { variant: "error" });
+        })
     }
 
     const disptch: AppDispatch = useDispatch()
