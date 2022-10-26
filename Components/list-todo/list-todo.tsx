@@ -14,45 +14,47 @@ import Link from "next/link";
 
 const Item: NextPage = () => {
     const dispatch: AppDispatch = useDispatch();
-    const todosItem = useSelector((state:Appstate)=> state.todos)
+    const todosItem = useSelector((state: Appstate) => state.todos)
 
 
 
     return (
-      
+
         <Container maxWidth="xs" sx={{
             marginTop: 10
         }}>
-                 <Grid item xs={12} md={10} rowSpacing={2}>
-                <Link href="http://localhost:3000/add-item">
-                <Button variant="contained" fullWidth sx={{
-                    height: 56,
-                    mb: 5
-                }} disableElevation  color="success">
-                   Add new task
-                </Button>
-                </Link>
-            </Grid>
+
+            <Link href="/add-item">
+                <a>
+                    <Button variant="contained" fullWidth sx={{
+                        height: 56,
+                        mb: 5
+                    }} disableElevation color="success">
+                        Add new task
+                    </Button>
+                </a>
+            </Link>
+
 
             <Grid container rowSpacing={2}>
-            {todosItem.map((todo) => (<>
+                {todosItem.map((todo) => (<>
                     <Grid item xs={10} md={10}>
-                        <Typography fontSize="2rem" ><span className={todo.completed==true ? "done" : ""}>{todo.mesage}</span></Typography>
+                        <Typography fontSize="2rem" ><span className={todo.completed == true ? "done" : ""}>{todo.mesage}</span></Typography>
 
                     </Grid>
                     <Grid item xs={2} md={2}>
                         <Button variant="contained" color="success" fullWidth sx={{
                             height: 56
                         }} disableElevation
-                        onClick={()=>dispatch(completeTodo(todo.id))}
+                            onClick={() => dispatch(completeTodo(todo.id))}
                         >
                             <CheckIcon fontSize="large" />
                         </Button>
                     </Grid>
-                    </>))}
-                </Grid>
+                </>))}
+            </Grid>
         </Container>
-        
+
     )
 
 }
